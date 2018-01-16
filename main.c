@@ -12,6 +12,8 @@ int main()
 	clockEnable();
 	gpioInit();
 	
+	__enable_irq();
+	
 	//Main cycle
 	for(;systemStopFlag==0;)
 	{
