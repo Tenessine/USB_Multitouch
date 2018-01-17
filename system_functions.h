@@ -1,5 +1,5 @@
-#ifndef __SYSTEM_VARIABLES
-#define __SYSTEM_VARIABLES
+#ifndef __SYSTEM_FUNCTIONS
+#define __SYSTEM_FUNCTIONS
 
 void enableIRQ(int irqNumber);
 

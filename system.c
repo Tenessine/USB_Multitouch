@@ -1,6 +1,6 @@
 #include "system.h"
 #include "stm32f10x.h"
-#include "stm32f10x_rcc.h"
+#include "system_functions.h"
 
 /*---------------------------------Private defines----------------------------------*/
 #define PLLMUL			(0x4<<18)	//PLL multiplication factor (mul.6)
@@ -115,6 +115,15 @@ void gpioInit(void)
 	//Configure GPIO pin : PB4 (INT)
 	GPIOB->CRL |= (1<<18);	//Floating input
 	
+	//Set external interrupt on port B
+	AFIO->EXTICR[1] |= AFIO_EXTICR2_EXTI4_PB; //(1<<0)
+	//Enable interrupt on EXTI4
+	EXTI->IMR |= EXTI_IMR_MR4;
+	//Interupt by rising edge
+	EXTI->RTSR |= EXTI_RTSR_TR4;
+	//NVIC->ISER[0] = NVIC_ISER_SETENA_6;
+	NVIC_EnableIRQ(EXTI4_IRQn);	
+		
 	//Configure GPIO pin : PB5 (RST)
 	GPIOB->CRL |= (2<<20);	//Output mode 2 MHz
 	

@@ -1,6 +1,5 @@
-#include "system_functions.h"
+#include "handlers.h"
 #include "stm32f10x.h"
-#include "stm32f10x_rcc.h"
 
 void enableIRQ(int irqNumber)
 {
