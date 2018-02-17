@@ -140,7 +140,7 @@ void gpioInit(void)
 void i2c_init(void)
 {
 	//Configure GPIO pin : PB6(SCL) PB7(SDA)
-	GPIOB->CRL |= (0xF<<26)|(0xF<<28);	//Alternate function Open-Drain,
+	GPIOB->CRL |= (0xF<<26);	//Alternate function Open-Drain,
 																			//output mode 50 MHz
 	//Enable I2C1 clock 
 	RCC->APB1ENR |= (1<<21);
