@@ -11,6 +11,8 @@
 #define PPRE1				(0x4<<8)	//APB1 clock devided by 2
 #define PPRE2				(0x4<<11)	//APB2 clock devided by 2
 #define USBPRE			(1<<22)		//PLL clock is not divided
+#define APB_FREQ		(12&0x3F)	//APB clock frequency value (12Mhz)
+#define I2C_CLK_SPD (100000)	//I2C clock speed
 
 void rccInit(void)
 {
@@ -137,5 +139,17 @@ void gpioInit(void)
 
 void i2c_init(void)
 {
-	
+	//Configure GPIO pin : PB6(SCL) PB7(SDA)
+	GPIOB->CRL |= (0xF<<26)|(0xF<<28);	//Alternate function Open-Drain,
+																			//output mode 50 MHz
+	//Enable I2C1 clock 
+	RCC->APB1ENR |= (1<<21);
+	//Set APB clock frequency value
+	I2C1->CR2 |= APB_FREQ;
+	//Set maximum rise time in master mode
+	I2C1->TRISE = (uint16_t)APB_FREQ+1;
+	//Configure clock control register
+	I2C1->CCR = 0x3C;//((1/I2C_CLK_SPD)/2)/(1/APB_FREQ*10^6)
+	//Enable I2C1 peripheral
+	I2C1->CR1 |= (1<<0);
 }

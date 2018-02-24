@@ -11,6 +11,7 @@ int main()
 	rccInit();
 	clockEnable();
 	gpioInit();
+	i2c_init();
 	
 	__enable_irq();
 	
