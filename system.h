@@ -1,12 +1,13 @@
 #ifndef __SYSTEM
 #define __SYSTEM
 
-void rccInit(void);
-void pllConfig(void);
-void clockEnable(void);
-void gpioInit(void);
-void i2c_init(void);
+#include <stdint.h>
 
+void pllConfig(void);
+void gpioInit(void);
+void clockEnable(void);
+void timerInit(void);
+void timDelay(uint16_t);
 
 
 #endif
